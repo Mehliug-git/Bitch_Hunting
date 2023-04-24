@@ -3,3 +3,7 @@
 This project is for Report -> DDOS -> Hack Scam website.
 
 The report is phishing-initiative.eu (thx to OCD <3)
+
+For the Hacking, Nikto for scan & your big brain for exploit 
+
+![alt text](/img/big_brain.jpg)
