@@ -1,6 +1,6 @@
 # La Chasse Aux Salopes !
 
-This project is for Report -> DDOS -> Hack Scam website.
+This project is for Report -> Flood the DB -> DDOS -> Scan -> Hack Scam website.
 
 The report is phishing-initiative.eu (thx to OCD <3)
 
