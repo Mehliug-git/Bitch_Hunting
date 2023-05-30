@@ -9,6 +9,13 @@ import sys
 random_range = int(random.choice('3456'))
 
 
+def scrap(url):
+    global response, cookie
+	# Envoyer une requête GET pour récupérer le contenu HTML de la page
+    response = requests.get(url)
+    cookie = response.cookies
+
+
 # Vérifier s'il y a au moins un argument
 if len(sys.argv) == 1:
     print("[-] Fait comme ça gros bouffon : script.py URL NB_DE_ROUND") 
@@ -27,11 +34,7 @@ else:
     # Afficher la valeur des arguments
     print("[+] URL :", url)
     print(f"[+] Pour {round} rounds")
-
-
-# Envoyer une requête GET pour récupérer le contenu HTML de la page
-response = requests.get(url)
-cookie = response.cookies
+    scrap(url)
 
 
 html_content = response.text
@@ -43,7 +46,7 @@ soup = BeautifulSoup(html_content, 'html.parser')
 form_elements = soup.find_all('input')
 
 #BULK card generator
-card = [
+card_data = [
 	{
 		"issuer": "VISA",
 		"cardNumber": "4485350330958237",
@@ -346,8 +349,8 @@ def generate_random_data():
 
     #Carding shit
     global card, exp, CCV, total_name
-    data = json.load(card)
-    choice = random.choice(data)
+    #data = json.load(card)
+    choice = random.choice(card_data)
 
     card = choice['cardNumber']
     exp = choice['exp']
@@ -406,18 +409,14 @@ def generator():
             value_gen(field_name)
 
             data_dict[field_name] = field_value
-    data_dict["acceptterms"] = 1
+            data_dict["acceptterms"] = 1
 
 
-
-#Envoie de la réponse sur un URL de test
-url_test = 'https://eoe0axeop0p9u2n.m.pipedream.net'
-
-#envoie des infos
+#send infos
 print(f'[+] Website : {url}')
 for _ in range(round):
+    scrap(url)
     generator()
-
     print(f'[+] Data : {data_dict}\n\n')
     print('[+] Envoi en cours ...')
-    response = requests.post(url_test, data=data_dict, cookies=cookie)
+    response = requests.post(url, data=data_dict, cookies=cookie)
