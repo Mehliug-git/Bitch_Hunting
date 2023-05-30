@@ -28,8 +28,12 @@ else:
     print("[+] URL :", url)
     print(f"[+] Pour {round} rounds")
 
+
 # Envoyer une requête GET pour récupérer le contenu HTML de la page
 response = requests.get(url)
+cookie = response.cookies
+
+
 html_content = response.text
 
 # Utiliser BeautifulSoup pour analyser le contenu HTML
@@ -340,9 +344,7 @@ def generate_random_data():
     bd_month = random.choice(month)
     bd_year = random.choice(years)
 
-
-# Créer un dictionnaire pour stocker les données des champs
-def carding():
+    #Carding shit
     global card, exp, CCV, total_name
     data = json.load(card)
     choice = random.choice(data)
@@ -418,4 +420,4 @@ for _ in range(round):
 
     print(f'[+] Data : {data_dict}\n\n')
     print('[+] Envoi en cours ...')
-    response = requests.post(url_test, data=data_dict)
+    response = requests.post(url_test, data=data_dict, cookies=cookie)
